@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../modules/ArchiveScreen/archiveScreen.dart';
 import '../../modules/NewScreen/newsScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../modules/profileScreen/profileScreen.dart';
 import '../../shared/network/remote/DioHelper/dio_helper.dart';
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialAppState());
@@ -19,9 +20,10 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screens =
   [
     NewsScreen(),
-    ArchiveScreen()
+    ArchiveScreen(),
+    ProfileScreen()
   ];
-  List<String> titleScreen = [ "News","Archive"];
+  List<String> titleScreen = [ "News","Archive","Profile"];
 
   // this related to newsScreen about changeDropDownItem
   String selectedCountry = "eg";
@@ -54,6 +56,7 @@ class AppCubit extends Cubit<AppStates> {
         ).then((value)
         {
           mydata = value?.data['articles'];
+          print(mydata);
           emit(GetDataFormApiState());
         });
   }
