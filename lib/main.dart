@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Colors.white,
               elevation: 0,
-              backgroundColor: Colors.black,
           ),
         ),
       ),

@@ -18,8 +18,8 @@ class AppCubit extends Cubit<AppStates> {
   }
   List<Widget> screens =
   [
-    const NewsScreen(),
-    const ArchiveScreen()
+    NewsScreen(),
+    ArchiveScreen()
   ];
   List<String> titleScreen = [ "News","Archive"];
 
@@ -32,7 +32,7 @@ class AppCubit extends Cubit<AppStates> {
   emit(changeSelectedCountryState());
   }
 
-  String selectedCategory = "sports";
+  String selectedCategory = "general";
   void chooseCategory(String val)
   {
     selectedCategory = val;
@@ -68,7 +68,7 @@ class AppCubit extends Cubit<AppStates> {
       version: 1,
       onCreate: (database,version)
         {
-          database.execute("CREATE TABLE news (id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, publishedAt TEXT , url TEXT , content TEXT)").then((value)
+          database.execute("CREATE TABLE news (id INTEGER PRIMARY KEY, title TEXT, urlImage TEXT, publishedAt TEXT)").then((value)
           {
             emit(CreateDatabaseState());
             print("News Table created successfully");
@@ -83,19 +83,22 @@ class AppCubit extends Cubit<AppStates> {
     );
   }
   // 2. Insert Data to news table
-  void InsertData({required String title,required String urlToImage,required String publishedAt,required String url,required String content}) async
+  void InsertTODatabase({
+    required String title,
+    required String urlToImage,
+    required String publishedAt,
+  })
   {
-    await db?.transaction((txn){
-      return txn.rawInsert('INSERT INTO news(title,urlImage,publishedAt,url,content) VALUES("$title","$urlToImage","$publishedAt","$url","$content")')
-          .then((value)
-            {
-              print("Insert to Database successfully ${value}");
-              emit(InsertToDatabaseState());
-              getDatabase(db!);
-            }
-      ).catchError((e)=>print("errror during Insert data to news table $e"));
-    });
+    db?.transaction((txn) async {
+      txn.rawInsert('INSERT INTO news(title,urlImage,publishedAt) VALUES ("${title}","${urlToImage}","${publishedAt}")');
+    }).then((val)
+    {
+      emit(InsertToDatabaseState());
+      print("Data was inserted to Database are => ${val}");
+      getDatabase(db!);
+    }).catchError((e)=>print(e));
   }
+
   // 3. get Data form Database
   Future getDatabase(Database database)
   {

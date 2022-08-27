@@ -12,15 +12,21 @@ class HomeModule extends StatelessWidget {
           var _cubit = AppCubit.get(context);
           return Scaffold(
           appBar: AppBar(title: Text("${_cubit.titleScreen[_cubit.initialIndex]}"),),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.archive),label: "Archive"),
-            ],
-            onTap: (index){
-              _cubit.ChangeBottomNavIndex(index);
-            },
-            currentIndex: _cubit.initialIndex,
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Colors.transparent),
+            clipBehavior: Clip.hardEdge,
+            margin: const EdgeInsets.all(15),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.black,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+                BottomNavigationBarItem(icon: Icon(Icons.archive),label: "Archive"),
+              ],
+              onTap: (index){
+                _cubit.ChangeBottomNavIndex(index);
+              },
+              currentIndex: _cubit.initialIndex,
+            ),
           ),
           body: _cubit.screens[_cubit.initialIndex],
           );
