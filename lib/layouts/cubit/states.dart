@@ -13,6 +13,8 @@ class GetDataFormApiState extends AppStates{}
 
 class CreateDatabaseState extends AppStates{}
 
+class LoadingDuringGettingDataFromApi extends AppStates{}
+
 class InsertToDatabaseState extends AppStates{}
 
 class GetDataFromDatabaseState extends AppStates{}

@@ -21,10 +21,11 @@ class NewsScreen extends StatelessWidget {
             width: double.infinity,
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: _newsData.isEmpty? Center(child: Text("loading"),) :
+            child: _newsData.isEmpty? Text('') :
             ListView(
               physics: BouncingScrollPhysics(),
               children: [
+                /*
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5),
                   child: Row(
@@ -60,6 +61,7 @@ class NewsScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                 */
                 const Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Text("Breaking News",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21)),
@@ -88,7 +90,7 @@ class NewsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 25),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              image: _newsData == null? DecorationImage(image: NetworkImage(_newsData[i]['urlToImage']),fit: BoxFit.fill) : null,
+                              image: DecorationImage(image: NetworkImage(_newsData[i]['urlToImage']),fit: BoxFit.fill),
                             ),
                             child: Container(
                               width: double.infinity,
@@ -99,7 +101,6 @@ class NewsScreen extends StatelessWidget {
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Expanded(child: Text(_newsData[i]['title'],overflow:TextOverflow.ellipsis,maxLines: 2,
                                       style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.white))),
@@ -125,9 +126,10 @@ class NewsScreen extends StatelessWidget {
                     return InkWell(
                       onTap: ()
                       {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return DetailsScreen(_newsData[index]['title'], _newsData[index]['urlToImage'],_newsData[index]['description']);
-                        }));
+                        if(_newsData[index]['urlToImage'] != null)
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {return DetailsScreen(_newsData[index]['title'], _newsData[index]['urlToImage'], _newsData[index]['description']);}));
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(15),
@@ -153,23 +155,23 @@ class NewsScreen extends StatelessWidget {
                                   children: [
                                     Expanded(child: Text(_newsData[index]['title'],overflow:TextOverflow.ellipsis,maxLines: 3,
                                         style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 16.5,color: Colors.white))),
-                                    InkWell(
-                                      onTap: (){
-                                        _cubit.InsertTODatabase
-                                          (
-                                          title: _newsData[index]['title'],
-                                          urlToImage: _newsData[index]['urlToImage'],
-                                          publishedAt: _newsData[index]['publishedAt'],
-                                        );
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(Jiffy(_newsData[index]['publishedAt']).yMMMd,style: TextStyle(fontWeight: FontWeight.normal,fontSize: 13,color: Colors.grey),),
-                                          const Icon(Icons.archive,size: 20,color: Colors.grey,)
-                                        ],
-                                      ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(Jiffy(_newsData[index]['publishedAt']).yMMMd,style: TextStyle(fontWeight: FontWeight.normal,fontSize: 13,color: Colors.grey),),
+                                        InkWell(
+                                            onTap: (){
+                                              _cubit.InsertTODatabase
+                                                (
+                                                title: _newsData[index]['title'],
+                                                urlToImage: _newsData[index]['urlToImage'],
+                                                publishedAt: _newsData[index]['publishedAt'],
+                                              );
+                                            },
+                                            child: Icon(Icons.archive,size: 20,color: Colors.grey,)
+                                        )
+                                      ],
                                     )
                                   ],
                                 ),

@@ -45,6 +45,7 @@ class AppCubit extends Cubit<AppStates> {
   // this related to get data from Api using Dio package 
   List mydata = [];
   void getData(){
+    emit(LoadingDuringGettingDataFromApi());
     DioHelper.getDataFromAPi(
         methodUrl: 'v2/top-headlines',
         query:
