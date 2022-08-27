@@ -11,6 +11,8 @@ class changeSelectedCategoryState extends AppStates{}
 
 class GetDataFormApiState extends AppStates{}
 
+class GetSearchDataState extends AppStates{}
+
 class CreateDatabaseState extends AppStates{}
 
 class LoadingDuringGettingDataFromApi extends AppStates{}

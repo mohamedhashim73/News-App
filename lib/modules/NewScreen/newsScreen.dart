@@ -14,6 +14,7 @@ class NewsScreen extends StatelessWidget {
       builder: (context,state){
         var _cubit = AppCubit.get(context);
         var _newsData = _cubit.mydata;
+        var _breakingData = _newsData.length-3;   // to get the last 3 news from each category to display on breaking news
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
@@ -25,43 +26,6 @@ class NewsScreen extends StatelessWidget {
             ListView(
               physics: BouncingScrollPhysics(),
               children: [
-                /*
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            onChanged: (chosenCountry)
-                            {
-                              _cubit.changeSelectedCountry(chosenCountry.toString());
-                              _cubit.getData();
-                            },
-                            value: _cubit.selectedCountry,
-                            items: ["eg","us","ar","bg","ua"].map((e) => DropdownMenuItem(child: Text("Country $e",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),value: e,)).toList(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 15,),
-                      Expanded(
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            items: ["sports","science","general","technology","health"].
-                            map((e) => DropdownMenuItem(child: Text("${e}",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17)),value: e,)).toList(),
-                            onChanged: (val)
-                            {
-                              _cubit.chooseCategory(val.toString());
-                              _cubit.getData();
-                            },
-                            value: _cubit.selectedCategory,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                 */
                 const Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Text("Breaking News",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 21)),
@@ -79,9 +43,12 @@ class NewsScreen extends StatelessWidget {
                         return InkWell(
                           onTap: ()
                           {
-                            Navigator.push(context, MaterialPageRoute(builder: (context){
-                              return DetailsScreen(_newsData[i]['title'], _newsData[i]['urlToImage'],_newsData[i]['description']);
-                            }));
+                            if(_newsData[_breakingData-i]['urlToImage'] != null)
+                              {
+                                Navigator.push(context, MaterialPageRoute(builder: (context){
+                                  return DetailsScreen(_newsData[_breakingData-i]['title'], _newsData[_breakingData-i]['urlToImage'],_newsData[_breakingData-i]['description']);
+                                }));
+                              }
                           },
                           child: Container(
                             width: 300,
@@ -90,7 +57,8 @@ class NewsScreen extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 25),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              image: DecorationImage(image: NetworkImage(_newsData[i]['urlToImage']),fit: BoxFit.fill),
+                              image: _newsData[_breakingData-i]['urlToImage'] != null ? DecorationImage(image: NetworkImage(
+                                  _newsData[_breakingData-i]['urlToImage']),fit: BoxFit.fill) : null ,
                             ),
                             child: Container(
                               width: double.infinity,
@@ -102,9 +70,9 @@ class NewsScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(child: Text(_newsData[i]['title'],overflow:TextOverflow.ellipsis,maxLines: 2,
-                                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.white))),
-                                  SizedBox(height:20,child: Text(_newsData[i]['source']['name'],style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14,color: Colors.grey),)),
+                                  Expanded(child: Text(_newsData[_breakingData-i]['title'],overflow:TextOverflow.ellipsis,maxLines: 2,
+                                      style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 19,color: Colors.white))),
+                                  SizedBox(height:20,child: Text(_newsData[_breakingData-i]['source']['name'],style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14,color: Colors.grey),)),
                                 ],
                               ),
                             ),

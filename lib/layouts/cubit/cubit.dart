@@ -17,8 +17,7 @@ class AppCubit extends Cubit<AppStates> {
     initialIndex = index ;
     emit(ChangeBottomNavState());
   }
-  List<Widget> screens =
-  [
+  List<Widget> screens = [
     NewsScreen(),
     ArchiveScreen(),
     ProfileScreen()
@@ -26,33 +25,31 @@ class AppCubit extends Cubit<AppStates> {
   List<String> titleScreen = [ "News","Archive","Profile"];
 
   // this related to newsScreen about changeDropDownItem
-  String selectedCountry = "eg";
-  void changeSelectedCountry(String chosenCountry)
-  {
-  selectedCountry = chosenCountry;
-  getData();
-  emit(changeSelectedCountryState());
+  String country = "eg";
+  String category = "general";
+  void selectCountry(String val) {
+    country = val;
+    getNews(country: country,category: category);
+    emit(changeSelectedCountryState());
   }
 
-  String selectedCategory = "general";
-  void chooseCategory(String val)
-  {
-    selectedCategory = val;
-    getData();
+  void selectCategory(String val) {
+    category = val;
+    getNews(country: country,category: category);
     emit(changeSelectedCategoryState());
   }
 
   // this related to get data from Api using Dio package 
   List mydata = [];
-  void getData(){
+  void getNews({required String country,required String category}){
     emit(LoadingDuringGettingDataFromApi());
     DioHelper.getDataFromAPi(
         methodUrl: 'v2/top-headlines',
         query:
         {
-          'country' : selectedCountry,
-          'category' : selectedCategory,
-          'apiKey' : 'ab8bb5ffb10d447d8b68601d795194cd',
+          'country' : country,
+          'category' : category,
+          'apiKey' : '8f4c8e5d17f541f99033ee5eb5290ed1',
         }
         ).then((value)
         {
@@ -61,8 +58,28 @@ class AppCubit extends Cubit<AppStates> {
           emit(GetDataFormApiState());
         });
   }
-  
-  // this related to Sqfite
+
+  // this related to get data Search Data Api using Dio package
+  List search = [];
+  void getSearchData({required String query}){
+    search = [];
+    emit(LoadingDuringGettingDataFromApi());
+    DioHelper.getDataFromAPi(
+        methodUrl: 'v2/everything',
+        query:
+        {
+          'q' : query,
+          'apiKey' : '8f4c8e5d17f541f99033ee5eb5290ed1',
+        }
+    ).then((value)
+    {
+      search = value?.data['articles'];
+      print(search);
+      emit(GetSearchDataState());
+    });
+  }
+
+  // this related to Sqlite
   Database? db ;
   List<Map> archivedData = [];
   // 1. create Database & news table

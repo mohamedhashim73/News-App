@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/modules/SearchScreen/search.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 class HomeModule extends StatelessWidget {
@@ -10,12 +11,14 @@ class HomeModule extends StatelessWidget {
         listener: (context,state){},
         builder: (context,state){
           var _cubit = AppCubit.get(context);
-          var _newsData = _cubit.mydata;
           List menu = ['Country','Category'];
           return Scaffold(
           appBar: AppBar(
               title: Text(_cubit.titleScreen[_cubit.initialIndex]),
               actions: [
+                InkWell(child: const Icon(Icons.search),onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
+                },),
                 PopupMenuButton(
                     itemBuilder: (context){
                       return menu.map((item) {
@@ -28,8 +31,7 @@ class HomeModule extends StatelessWidget {
                       if(selectedItem == 'Country') {
                         showMenu(
                           context: context,
-                          position: const RelativeRect.fromLTRB(
-                              25.0, 25.0, 0.0, 0.0),
+                          position: const RelativeRect.fromLTRB(25.0, 25.0, 0.0, 0.0),
                           items: const [
                             PopupMenuItem<String>(
                                 value: '1',
@@ -39,30 +41,30 @@ class HomeModule extends StatelessWidget {
                                 child: Text('United States')),
                             PopupMenuItem<String>(
                                 value: '3',
-                                child: Text('Arminia')),
+                                child: Text('Germany')),
                             PopupMenuItem<String>(
                                 value: '4',
-                                child: Text('Belgium')),
+                                child: Text('France')),
                           ],
                           elevation: 0,
                         ).then((value) {
                           if(value == '1')
                           {
-                            _cubit.changeSelectedCountry('eg');
-                            _cubit.getData();
+                            _cubit.selectCountry('eg');
+                            _cubit.getNews(country: 'eg', category: _cubit.category);
                           } else if(value == '2')
                           {
-                            _cubit.changeSelectedCountry('us');
-                            _cubit.getData();
+                            _cubit.selectCountry('us');
+                            _cubit.getNews(country: 'us', category: _cubit.category);
                           } else if(value == '3')
                           {
-                            _cubit.changeSelectedCountry('ar');
-                            _cubit.getData();
+                            _cubit.selectCountry('de');
+                            _cubit.getNews(country: 'de', category: _cubit.category);
                           }
                           else if(value == '4')
                           {
-                            _cubit.changeSelectedCountry('bg');
-                            _cubit.getData();
+                            _cubit.selectCountry('fr');
+                            _cubit.getNews(country: 'fr', category: _cubit.category);
                           }
                         });
                       }
@@ -90,26 +92,26 @@ class HomeModule extends StatelessWidget {
                           ).then((value) {
                             if(value == '1')
                             {
-                              _cubit.changeSelectedCountry('general');
-                              _cubit.getData();
+                              _cubit.selectCategory('general');
+                              _cubit.getNews(country: _cubit.country, category: 'general');
                             } else if(value == '2')
                             {
-                              _cubit.changeSelectedCountry('sports');
-                              _cubit.getData();
+                              _cubit.selectCategory('sports');
+                              _cubit.getNews(country: _cubit.country, category: 'sports');
                             } else if(value == '3')
                             {
-                              _cubit.chooseCategory('science');
-                              _cubit.getData();
+                              _cubit.selectCategory('science');
+                              _cubit.getNews(country: _cubit.country, category: 'science');
                             }
                             else if(value == '4')
                             {
-                              _cubit.chooseCategory('health');
-                              _cubit.getData();
+                              _cubit.selectCategory('health');
+                              _cubit.getNews(country: _cubit.country, category: 'health');
                             }
                           });
                         }
                   },
-                )
+                ),
               ],
           ),
           bottomNavigationBar: Container(
