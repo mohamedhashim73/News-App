@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:news_app/shared/component/constants.dart';
 import '../../layouts/cubit/cubit.dart';
 import '../../layouts/cubit/states.dart';
 import 'package:bloc/bloc.dart';
@@ -50,8 +51,7 @@ class ArchiveScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(child: Text(data[index]['title'],overflow:TextOverflow.ellipsis,maxLines: 3,
-                                  style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white))),
+                              Expanded(child: Text(data[index]['title'],overflow:TextOverflow.ellipsis,maxLines: 3,textDirection: arabicDirection,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white))),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

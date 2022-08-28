@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/SearchScreen/search.dart';
+import '../../shared/component/constants.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 class HomeModule extends StatelessWidget {
@@ -51,19 +52,23 @@ class HomeModule extends StatelessWidget {
                           if(value == '1')
                           {
                             _cubit.selectCountry('eg');
+                            arabicDirection = TextDirection.rtl;
                             _cubit.getNews(country: 'eg', category: _cubit.category);
                           } else if(value == '2')
                           {
                             _cubit.selectCountry('us');
+                            arabicDirection = TextDirection.ltr;
                             _cubit.getNews(country: 'us', category: _cubit.category);
                           } else if(value == '3')
                           {
                             _cubit.selectCountry('de');
+                            arabicDirection = TextDirection.ltr;
                             _cubit.getNews(country: 'de', category: _cubit.category);
                           }
                           else if(value == '4')
                           {
                             _cubit.selectCountry('fr');
+                            arabicDirection = TextDirection.ltr;
                             _cubit.getNews(country: 'fr', category: _cubit.category);
                           }
                         });

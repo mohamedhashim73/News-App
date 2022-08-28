@@ -5,6 +5,7 @@ import 'package:news_app/layouts/cubit/cubit.dart';
 import 'package:news_app/layouts/cubit/states.dart';
 
 import '../../shared/component/component.dart';
+import '../../shared/component/constants.dart';
 import '../details_screen/details_screen.dart';
 class SearchScreen extends StatelessWidget {
   var searchController = TextEditingController();
@@ -76,7 +77,7 @@ class SearchScreen extends StatelessWidget {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(child: Text(mySearch[index]['title'],overflow:TextOverflow.ellipsis,maxLines: 3,
+                                        Expanded(child: Text(mySearch[index]['title'],textDirection:arabicDirection,overflow:TextOverflow.ellipsis,maxLines: 3,
                                             style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 16.5,color: Colors.white))),
                                         Text(Jiffy(mySearch[index]['publishedAt']).yMMMd,style: TextStyle(fontWeight: FontWeight.normal,fontSize: 13,color: Colors.grey),),
                                       ],

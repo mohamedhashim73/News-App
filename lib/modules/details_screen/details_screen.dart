@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/shared/component/constants.dart';
 class DetailsScreen extends StatelessWidget {
   final String title;
   final String urlToImage;
@@ -7,7 +8,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Details"),),
+      appBar: AppBar(title: const Text("Details")),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -16,7 +17,7 @@ class DetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Text(title,maxLines:3,overflow:TextOverflow.visible,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w600)),
+            Text(title,textDirection:arabicDirection,maxLines:3,overflow:TextOverflow.visible,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w600)),
             Container(
               height: 220,
               margin: const EdgeInsets.symmetric(vertical: 25),
@@ -26,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
               Image.network(urlToImage,fit: BoxFit.fill,width: double.infinity,height: 120),
              ),
             SizedBox(height: 10,),
-            Expanded(child: Text(description,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500))),
+            Expanded(child: Text(description,textDirection:arabicDirection,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500))),
           ],
         ),
       )

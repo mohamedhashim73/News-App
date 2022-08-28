@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:news_app/shared/component/constants.dart';
 import '../../layouts/cubit/cubit.dart';
 import '../../layouts/cubit/states.dart';
 import '../details_screen/details_screen.dart';
@@ -14,7 +15,7 @@ class NewsScreen extends StatelessWidget {
       builder: (context,state){
         var _cubit = AppCubit.get(context);
         var _newsData = _cubit.mydata;
-        var _breakingData = _newsData.length-3;   // to get the last 3 news from each category to display on breaking news
+        var _breakingData = _newsData.length-6;   // to get the last 3 news from each category to display on breaking news
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
@@ -70,7 +71,7 @@ class NewsScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(child: Text(_newsData[_breakingData-i]['title'],overflow:TextOverflow.ellipsis,maxLines: 2,
+                                  Expanded(child: Text(_newsData[_breakingData-i]['title'], overflow:TextOverflow.ellipsis,maxLines: 2,textDirection: arabicDirection,
                                       style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 19,color: Colors.white))),
                                   SizedBox(height:20,child: Text(_newsData[_breakingData-i]['source']['name'],style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14,color: Colors.grey),)),
                                 ],
@@ -122,6 +123,7 @@ class NewsScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(child: Text(_newsData[index]['title'],overflow:TextOverflow.ellipsis,maxLines: 3,
+                                        textDirection: arabicDirection,
                                         style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 16.5,color: Colors.white))),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
