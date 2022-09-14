@@ -1,4 +1,5 @@
 Application represent the News for many Countries like Egypt, America, France in addition to searching by Category like General, Science, Sport, Economy and so on.
+
 Application features :
 - You can choose any Country with particularly Category
 - Add | Remove any article to | from  Archive
