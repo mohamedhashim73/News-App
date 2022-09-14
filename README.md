@@ -1,4 +1,10 @@
-You can see all news about a lot of countries in addition to you can choose the category that you want. developed using Dart & Flutter & Rest Api & Dio & Bloc.
+Application represent the News for many Countries like Egypt, America, France in addition to searching by Category like General, Science, Sport, Economy and so on.
+Application features :
+- You can choose any Country with particularly Category
+- Add | Remove any article to | from  Archive
+- Support Light & Dark mode .
+
+Developed using Dart, Flutter, SQlite, newsapi.org, SharedPreferences, Bloc, Dio.
 
 URL for Video that show the App https://www.facebook.com/100039166004497/videos/2212086578972371/
 
