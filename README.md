@@ -1,3 +1,5 @@
+# News Application
+
 Application represent the News for many Countries like Egypt, America, France in addition to searching by Category like General, Science, Sport, Economy and so on.
 
 Application features :
@@ -8,6 +10,8 @@ Application features :
 Developed using Dart, Flutter, SQlite, newsapi.org, SharedPreferences, Bloc, Dio.
 
 URL for Video that show the App https://www.linkedin.com/posts/mohamed-hashim-3b2ab2235_flutter-mobileappdevelopment-activity-6969733249887580160-_UzU?utm_source=share&utm_medium=member_desktop
+
+# images that cover the Application
 
 ![Screenshot_2022-08-27-18-48-34-80](https://user-images.githubusercontent.com/101535118/187040177-88f52bc1-ac0d-4f2c-b918-77ace9d7e968.jpg)
 ![Screenshot_2022-08-27-18-48-56-05](https://user-images.githubusercontent.com/101535118/187040180-d41697a3-bde7-4156-b7b8-e7ed2c282b73.jpg)
